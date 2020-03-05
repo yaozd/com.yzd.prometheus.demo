@@ -1,6 +1,12 @@
 ## 参考：
+- [Micrometer 快速入门](https://www.cnblogs.com/cjsblog/p/11556029.html) 推荐参考byArvin
 - [Prometheus for Spring Boot](https://www.jianshu.com/p/f1c9f1868bd5)
 - [micrometer](http://micrometer.io/docs/concepts#_meter_filters)
+
+## 示例
+- 添加git代码的提交id到prometheus,这样就可以知道当前运行的代码的版本
+    - [Spring Boot项目获取Git版本信息](https://blog.csdn.net/t5721654/article/details/89149151)
+    > 通过提交ID，我们可以知道每个版本，都有哪几台机器正在运行。
 
 ## Meter filters
 - [指标过滤](http://micrometer.io/docs/concepts#_meter_filters)
