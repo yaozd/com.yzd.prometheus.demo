@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 
 @RestController
@@ -56,5 +57,20 @@ public class HomeControllerApi {
     @GetMapping("getGitShortCommitId")
     public String getGitShortCommitId() {
         return gitInfo.getShortCommitId();
+    }
+
+    /**
+     * 302 重定向
+     * 302状态的请求是通过response headers中的location进行二次跳转。
+     * 二次跳转理论是由浏览器发起的。
+     * 浏览器发起请求此时已经是hp.hualala.com，
+     * 而hp.hualala.com这个服务目前不过ROUTER
+     * @param response
+     * @throws Exception
+     */
+    @GetMapping("redirectURL")
+    public void redirectURL(HttpServletResponse response) throws Exception{
+        //response.sendRedirect("https://www.baidu.com");
+        response.sendRedirect("/");
     }
 }
