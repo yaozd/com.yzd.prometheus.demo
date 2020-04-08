@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.BufferedReader;
+import java.io.IOException;
 
 
 @RestController
@@ -22,14 +24,16 @@ public class HomeControllerApi {
 
     /**
      * 匹配所有路由
+     *
      * @param request
      * @return
      */
     @RequestMapping("/**")
     public String index(HttpServletRequest request) {
-        String msg = "request uri:" + request.getRequestURI();
-        logger.info(msg);
-        return msg;
+        String bodyMsg = "body:" + readBody(request);
+        String uriMsg = "request uri:" + request.getRequestURI();
+        logger.info(uriMsg);
+        return uriMsg;
     }
 
     @RequestMapping("/greeting")
@@ -65,12 +69,38 @@ public class HomeControllerApi {
      * 二次跳转理论是由浏览器发起的。
      * 浏览器发起请求此时已经是hp.hualala.com，
      * 而hp.hualala.com这个服务目前不过ROUTER
+     *
      * @param response
      * @throws Exception
      */
     @GetMapping("redirectURL")
-    public void redirectURL(HttpServletResponse response) throws Exception{
+    public void redirectURL(HttpServletResponse response) throws Exception {
         //response.sendRedirect("https://www.baidu.com");
         response.sendRedirect("/");
+    }
+
+    public static String readBody(HttpServletRequest request) {
+
+        BufferedReader br = null;
+        StringBuilder sb = new StringBuilder("");
+        try {
+            br = request.getReader();
+            String str;
+            while ((str = br.readLine()) != null) {
+                sb.append(str);
+            }
+            br.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (null != br) {
+                try {
+                    br.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return sb.toString();
     }
 }
