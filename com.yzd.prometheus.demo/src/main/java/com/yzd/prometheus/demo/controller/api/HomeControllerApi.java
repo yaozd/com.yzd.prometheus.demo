@@ -32,7 +32,7 @@ public class HomeControllerApi {
     public String index(HttpServletRequest request) {
         String bodyMsg = "body:" + readBody(request);
         String uriMsg = "request uri:" + request.getRequestURI();
-        logger.info(uriMsg);
+        logger.info("\r\n{} ; {}",uriMsg,bodyMsg);
         return uriMsg;
     }
 
